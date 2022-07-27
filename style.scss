@@ -1,0 +1,28 @@
+/** @format */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-size: 18px;
+	font-family: calibri;
+}
+
+#container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	justify-content: center;
+	align-items: center;
+	#title {
+		font-size: 1.8rem;
+		font-weight: 600;
+		padding: 20px;
+	}
+	#description {
+		font-size: 1.2rem;
+		font-weight: 600;
+	}
+}
