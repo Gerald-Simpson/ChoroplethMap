@@ -46,6 +46,25 @@ fetch(dataSourceMap)
 					.enter()
 					.append("path")
 					.attr("class", "county")
+					.attr("data-fips", (d) => d.id)
+					.attr("data-education", function (d) {
+						var countyDataObject = DataData.find(
+							(object) => object.fips === d.id
+						);
+						return countyDataObject.bachelorsOrHigher;
+					})
+					.attr("state", function (d) {
+						var countyDataObject = DataData.find(
+							(object) => object.fips === d.id
+						);
+						return countyDataObject.state;
+					})
+					.attr("areaName", function (d) {
+						var countyDataObject = DataData.find(
+							(object) => object.fips === d.id
+						);
+						return countyDataObject.area_name;
+					})
 					.attr("fill", (d) => {
 						if (d.id === 1001) {
 							return "pink";
