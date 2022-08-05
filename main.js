@@ -20,9 +20,17 @@ fetch(dataSourceMap)
 				var w = 1000,
 					h = 600;
 
-				//var projection = d3.geoEquirectangular().scale(75);
+				let colors = [
+					"#eff3ff",
+					"#c6dbef",
+					"#9ecae1",
+					"#6baed6",
+					"#4292c6",
+					"#2171b5",
+					"#084594",
+				];
 
-				//var path = d3.geoPath().projection(projection);
+				let colorScale = d3.scaleQuantize().domain([3, 66]).range(colors);
 
 				var path = d3.geoPath();
 
@@ -36,7 +44,7 @@ fetch(dataSourceMap)
 					.append("rect")
 					.attr("width", w)
 					.attr("height", h)
-					.attr("fill", "pink");*/
+					.attr("fill", colorScale(65));*/
 
 				svg
 					.append("g")
@@ -46,14 +54,40 @@ fetch(dataSourceMap)
 					.enter()
 					.append("path")
 					.attr("class", "county")
+					.attr("data-fips", (d) => d.id)
+					.attr("data-education", function (d) {
+						var countyDataObject = DataData.find(
+							(object) => object.fips === d.id
+						);
+						return countyDataObject.bachelorsOrHigher;
+					})
+					.attr("state", function (d) {
+						var countyDataObject = DataData.find(
+							(object) => object.fips === d.id
+						);
+						return countyDataObject.state;
+					})
+					.attr("areaName", function (d) {
+						var countyDataObject = DataData.find(
+							(object) => object.fips === d.id
+						);
+						return countyDataObject.area_name;
+					})
 					.attr("fill", (d) => {
-						if (d.id === 1001) {
-							return "pink";
-						}
+						return colorScale(
+							DataData.find((object) => object.fips === d.id).bachelorsOrHigher
+						);
 					})
 					.attr("d", path)
 					.attr("stroke", "none")
 					.attr("stroke-width", 0);
+
+				console.log(
+					Math.max(...DataData.map((value) => value.bachelorsOrHigher))
+				);
+				console.log(
+					Math.min(...DataData.map((value) => value.bachelorsOrHigher))
+				);
 
 				svg
 					.append("path")
