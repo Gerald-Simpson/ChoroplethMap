@@ -27,5 +27,18 @@ body {
 	}
 	#chart {
 		padding: 20px;
+		#tooltip {
+			position: absolute;
+			background-color: #fdd8a9;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			width: fit-content;
+			height: fit-content;
+			font-size: 0.8rem;
+			font-weight: 400;
+			padding: 5px 10px;
+		}
 	}
 }
